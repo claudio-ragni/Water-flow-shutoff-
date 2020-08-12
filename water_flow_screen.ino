@@ -1,8 +1,3 @@
-/*
-YF‐ S201 Water Flow Sensor
-Water Flow Sensor output processed to read in litres/hour
-Adaptation Courtesy: www.hobbytronics.co.uk
-*/ 
 #include <Wire.h> // Library for I2C communication
 #include <LiquidCrystal_I2C.h> // Library for LCD
 float total_flow = 0;
@@ -42,7 +37,7 @@ void loop ()
 {
       state1=analogRead(button1);
       state2=digitalRead(button2); 
-      if (state1 > 10000000){
+      if (state1 > 1020){
         max_amount=max_amount+1;
         lcd.clear();
         lcd.setCursor(0,1);
@@ -79,7 +74,6 @@ void loop ()
         }
       }
       cloopTime = currentTime; // Updates cloopTime
-      // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
       l_min = (flow_frequency/ 7.5); 
       total_flow=(total_flow+(l_min*0.1));
       flow_frequency = 0; // Reset Counter
@@ -91,9 +85,7 @@ void loop ()
       lcd.print(" Total flow");
       if (total_flow>max_amount )
    {
-    digitalWrite(in1, LOW);
-   
-      
+    digitalWrite(in1, LOW);   
    }
    }
 }
